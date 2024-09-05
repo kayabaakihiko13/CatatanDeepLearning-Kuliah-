@@ -21,11 +21,13 @@ int main(void) {
 
     // Neural network operation
      // Expected output for AND Gate
-    float expected_output[4] = {0.0f, 0.0f, 0.0f, 1.0f}; 
+    float expected_output[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+    SingleLayerPerceptronClassification perceptron;
     Perceptron p;
      // Initialize perceptron with 2 inputs
-    initialize_perceptron(&p, 2); 
-    train_perceptron_classification(&p, &mat, expected_output, 1000, 0.1f);  // Train perceptron
+    
+    perceptron.initialize_perceptron(&p, 2); 
+    perceptron.train_perceptron_classification(&p, &mat, expected_output, 1000, 0.001f);  // Train perceptron
 
     // Print trained weights and bias
     printf("Trained weights: [%.5f, %.5f]\n", p.weights[0], p.weights[1]);
@@ -34,7 +36,7 @@ int main(void) {
     // Prediction with input data
     for (int i = 0; i < mat.rows; i++) {
         float input[2] = {mat.data[i][0], mat.data[i][1]};
-        float output = predict_classification(&p, input);
+        float output = perceptron.predict_classification(&p, input);
         // Classification threshold
         int classified_output = (output >= 0.5f) ? 1 : 0;  
         printf("Input: %.0f, %.0f - Predicted Output: %.5f - Classified Output: %d\n", 
