@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "utils.h"
 #include "NN.h"
 
@@ -18,11 +17,10 @@ int main() {
     
     printf("size of Input record is %dX%d",InputMat.rows,InputMat.cols);
     printf("size of Target record is %dX%d",TargetMat.rows,TargetMat.cols);
+    NeuralNetwork nn = initializationNetwork(InputMat.rows*InputMat.cols, 100, 2);
+    trainNetwork(&nn, &InputMat, &TargetMat, InputMat.rows, 100, 0.00001f);
+    // float result[4];
+    predict(&nn, &InputMat);
 
-    // generate kernel
-    int size[2] = {3,3};
-    Matrixf kernel3 = kernelConvolution(size);
-    printf("%f\n",kernel3.data[0]);
-    
     return 0;
 }

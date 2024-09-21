@@ -99,7 +99,15 @@ void ReadMatrixf(Matrixf *mat,int size){
     }
     printf("\n");
 }
-
+void freeMatrixf(Matrixf *mat){
+    if(mat->data != NULL){
+        mat->data = NULL;
+        mat->rows=0;mat->cols=0;
+    }
+    else{
+        fprintf(stderr, "your matrix in NULL");
+    }
+}
 typedef struct{
     int rows;
     int cols;
